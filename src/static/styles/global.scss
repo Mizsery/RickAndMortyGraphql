@@ -1,0 +1,18 @@
+:root {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mantine-color-lime-5) hsl(0, 0%, 20%);
+
+  color-scheme: var(--mantine-color-scheme);
+}
+
+body {
+  font-family: var(--mantine-font-family);
+  font-size: var(--mantine-font-size-md);
+  line-height: var(--mantine-line-height);
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+
+  -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+  -moz-osx-font-smoothing: var(--mantine-moz-font-smoothing);
+}

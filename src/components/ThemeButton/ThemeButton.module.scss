@@ -1,0 +1,28 @@
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+.dark {
+  @include dark {
+    display: none;
+  }
+
+  @include light {
+    display: block;
+    fill: var(--mantine-color-gray-outline-hover);
+
+  }
+}
+
+.light {
+  @include light {
+    display: none;
+  }
+
+  @include dark {
+    display: block;
+    fill: var(--mantine-color-yellow-4);
+
+  }
+}
