@@ -22,7 +22,8 @@ export default antfu(
     ignores: [
       'package.json',
       'node_module',
-      '.vscode'
+      '.vscode',
+      'tsconfig.*.json'
     ]
 
   },
@@ -123,7 +124,7 @@ export default antfu(
       'style/indent': ['error', 2, { SwitchCase: 1 }],
       'style/no-tabs': 'error',
       'style/linebreak-style': ['error', 'unix'],
-      'style/arrow-parens': ['error', 'always'],
+      'style/arrow-parens': ['error', 'always']
     }
   },
   /* Rules */

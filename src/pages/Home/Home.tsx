@@ -1,39 +1,45 @@
 import { useQuery } from '@apollo/client';
-import { ThemeButton } from '@components/ThemeButton/ThemeButton';
+import { Grid, Image } from '@mantine/core';
 import clsx from 'clsx';
+
+import { GET_CHARACTERS } from '../../utils/graphql/requests';
 
 import styles from './Home.module.scss';
 
-import { GET_CHARACTERS } from '@/utils/graphql/api';
+import type { Characters, FilterCharacter, FilterType } from '@/@types/api';
 
 interface HomeProps {
   className?: string;
 }
 
 export const Home = ({ className }: HomeProps) => {
-  const { data, loading, error } = useQuery(GET_CHARACTERS);
+  const { data, loading, error } = useQuery<Characters, FilterCharacter>(GET_CHARACTERS, {
+    variables: { page: 1, name: 'rick', status: '', species: '', type: '', gender: '' }
+  });
 
   if (loading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
 
   return (
-    <div className={clsx(styles, className)}> 
-      <img src='/src/assets/Rick_and_Morty.svg' alt='' />
-      <ThemeButton />
-      <h1>Rick and Morty</h1>
-      <div className={styles.title}>
+    <div className={clsx(styles, className)}>
+
+      <Grid className={styles.title}>
         {
-          data.characters.results.map((character) => (
-            <div key={character.id} className={styles.title}>
+          data?.characters.results.map((character) => (
+            <Grid.Col
+              span={{ base: 12, sm: 6, md: 4, lg: 3 }}
+              key={character.id}
+              className={styles.title}
+            >
               <h3>{character.name}</h3>
-              <img src={character.image} alt={character.name} />
+              <Image h={300} w={300} src={character.image} alt={character.name} />
               <p>{character.species}</p>
               <p>{character.type}</p>
               <p>{character.status}</p>
-            </div>
+            </Grid.Col>
           ))
         }
-      </div>
+      </Grid>
     </div>
   );
 };
