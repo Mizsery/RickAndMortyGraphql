@@ -8,7 +8,7 @@ import { client } from '@/utils/graphql/client.ts';
 
 export const App = () => {
   return (
-    <MantineProvider defaultColorScheme='auto' theme={theme} colorSchemeManager={colorSchemeManager}>
+    <MantineProvider defaultColorScheme='auto' theme={theme} colorSchemeManager={colorSchemeManager} withGlobalClasses>
       <ApolloProvider client={client}>
         <Router />
       </ApolloProvider>

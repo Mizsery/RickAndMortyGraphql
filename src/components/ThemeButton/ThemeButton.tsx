@@ -10,6 +10,7 @@ export const ThemeButton = () => {
 
   return (
     <ActionIcon
+      visibleFrom='sm'
       onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
       variant='default'
       size='xl'

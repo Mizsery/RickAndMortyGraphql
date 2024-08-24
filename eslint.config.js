@@ -10,13 +10,6 @@ export default antfu(
     react: true,
     typescript: true,
 
-    // stylistic: {
-    //   quotes: 'double',
-    //   semi: true,
-    //   jsx: true,
-    //   indent: 'tab'
-    // },
-
     stylistic: true,
 
     ignores: [
@@ -107,6 +100,9 @@ export default antfu(
   {
     name: 'mizsery/style',
     rules: {
+      'style/multiline-ternary': 'off',
+      'style/jsx-curly-newline': 'off',
+      'style/jsx-one-expression-per-line': 'off',
       'style/member-delimiter-style': 'off',
       'style/quote-props': 'off',
       'style/brace-style': 'off',
