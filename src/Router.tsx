@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from '@pages/Home/Home';
 
 import { Container } from './components/Layout/Container';
+import { Character } from './pages/Character/Character';
 
 const router = createBrowserRouter([
   {
@@ -18,12 +19,20 @@ const router = createBrowserRouter([
         element: <div>Locations</div>
       },
       {
+        path: '/locations/:id',
+        element: <div>Location id</div>
+      },
+      {
         path: '/episodes',
         element: <div>Episodes</div>
       },
       {
-        path: '/character/:id',
-        element: <div>current character </div>
+        path: '/episodes/:id',
+        element: <div>Episode id</div>
+      },
+      {
+        path: '/characters/:id',
+        element: <Character />
       }
     ]
   }

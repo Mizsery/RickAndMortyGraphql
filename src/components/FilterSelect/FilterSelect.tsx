@@ -30,7 +30,9 @@ export const FilterSelect = ({ value, values, type, setValue, placeholder }: Fil
     >
       <Combobox.Target>
         <InputBase
+          label={type.toUpperCase()}
           component='button'
+          w='200px'
           type='button'
           size='md'
           radius='md'

@@ -10,7 +10,7 @@ interface Character {
   origin: Location;
   location: Location;
   image: string;
-  episode: string[];
+  episode: Episode[];
   created: string
 }
 

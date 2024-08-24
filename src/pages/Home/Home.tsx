@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Group } from '@mantine/core';
+import { Box, Button, Divider, Group, Stack } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import clsx from 'clsx';
 
@@ -40,35 +40,42 @@ export const Home = () => {
   };
 
   const handleSelectFilters = (type: string, value: string) => {
-    setFilters({ ...filters, [type]: value });
+    setFilters({ ...filters, page: 1, [type]: value });
   };
 
   return (
     <>
-      <Group grow py='md' justify='center' className={clsx(styles.home)}>
+      <Stack align='flex-start' justify='center' className={clsx(styles.home)}>
 
-        <ClearInput value={filters.name} type='name' changeInput={(type, value) => handleSelectFilters(type, value)} />
-        <FilterSelect
-          value={filters.status}
-          type='status'
-          values={STATUS}
-          setValue={(type, value) => handleSelectFilters(type, value)}
-          placeholder='Status'
+        <Group>
+          <ClearInput value={filters.name} type='name' changeInput={(type, value) => handleSelectFilters(type, value)} />
+          <ClearInput value={filters.species} type='species' changeInput={(type, value) => handleSelectFilters(type, value)} />
+          <ClearInput value={filters.type} type='type' changeInput={(type, value) => handleSelectFilters(type, value)} />
+        </Group>
 
-        />
-        <FilterSelect
-          value={filters.gender}
-          type='gender'
-          values={GENDER}
-          setValue={(type, value) => handleSelectFilters(type, value)}
-          placeholder='Gender'
+        <Group>
+          <FilterSelect
+            value={filters.status}
+            type='status'
+            values={STATUS}
+            setValue={(type, value) => handleSelectFilters(type, value)}
+            placeholder='Status'
 
-        />
-        <ClearInput value={filters.species} type='species' changeInput={(type, value) => handleSelectFilters(type, value)} />
-        <ClearInput value={filters.type} type='type' changeInput={(type, value) => handleSelectFilters(type, value)} />
+          />
+          <FilterSelect
+            value={filters.gender}
+            type='gender'
+            values={GENDER}
+            setValue={(type, value) => handleSelectFilters(type, value)}
+            placeholder='Gender'
+
+          />
+        </Group>
 
         <Button size='md' radius='md' variant='outline' color='teal.6' onClick={handleClearFilters}>Clear Filters</Button>
-      </Group>
+      </Stack>
+
+      <Divider my='md' color='teal.6' />
 
       <Box className={clsx(styles)}>
         <DataGrid

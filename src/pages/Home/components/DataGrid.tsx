@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { Card, Center, Grid, Image, Pagination, Stack, Text } from '@mantine/core';
+import { Card, Center, Grid, Image, Pagination, Stack, Text, Title } from '@mantine/core';
 
 import type { Characters, FilterCharacter } from '@/@types/api';
 import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
@@ -37,21 +38,20 @@ export const DataGrid = ({ setPages, filters, debounceFilters }: DataGridProps) 
             <>
               <Grid>
                 {characters.results.map((character) => (
-                  <Grid.Col
-                    span={{ base: 12, sm: 6, md: 4, lg: 3 }}
-                    key={character.id}
-                  >
+                  <Grid.Col key={character.id} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
+                    <Link to={`/characters/${character.id}`}>
 
-                    <Card shadow='sm' padding='md' radius='md' withBorder h='100%'>
-                      <Stack align='center'justify='center'>
-                        <h3>{character.name}</h3>
-                        <Image h={300} w={300} src={character.image} alt={character.name} />
-                        <Text component='p'> Species: {character.species}</Text>
-                        {character.type && (<Text component='p'>Type: {character.type}</Text>)}
-                        <Text component='p'>Status: {character.status}</Text>
-                      </Stack>
-                    </Card>
+                      <Card shadow='sm' padding='md' radius='md' withBorder h='100%'>
+                        <Stack align='center'justify='center'>
+                          <Title order={3}>{character.name}</Title>
+                          <Image h={300} w={300} radius='sm' src={character.image} alt={character.name} />
+                          <Text component='p'> Species: {character.species}</Text>
+                          {character.type && (<Text component='p'>Type: {character.type}</Text>)}
+                          <Text component='p'>Status: {character.status}</Text>
+                        </Stack>
+                      </Card>
 
+                    </Link>
                   </Grid.Col>
                 ))}
               </Grid>

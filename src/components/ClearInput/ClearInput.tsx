@@ -1,4 +1,4 @@
-import { CloseButton, Input } from '@mantine/core';
+import { CloseButton, TextInput } from '@mantine/core';
 
 interface ClearInputProps {
   value: string;
@@ -7,7 +7,8 @@ interface ClearInputProps {
 }
 
 export const ClearInput = ({ value, type, changeInput }: ClearInputProps) => (
-  <Input
+  <TextInput
+    label={type.toUpperCase()}
     placeholder={`Enter ${type}`}
     size='md'
     variant='filled'
