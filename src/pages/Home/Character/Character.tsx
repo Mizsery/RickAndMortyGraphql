@@ -2,11 +2,10 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { CustomLoader } from '@components/CustomLoader/CustomLoader';
 import { ErrorMessage } from '@components/ErrorMessage/ErrorMessage';
-import { Box, Card, Container, Divider, Flex, Grid, Group, Image, Stack, Text, Title } from '@mantine/core';
+import { Box, Card, Divider, Flex, Grid, Image, Stack, Text, Title } from '@mantine/core';
 
 import { LocationContainer } from './components/LocationContainer';
 
-import styles from './Character.module.scss';
 
 import type { GetCharacter } from '@/utils/graphql/requests';
 import { GET_CHARACTER } from '@/utils/graphql/requests';
@@ -32,7 +31,7 @@ export const Character = () => {
       {
         character && (
           <>
-            <Flex gap='xl' justify='start' align='flex-start' className={styles.characterContainer}>
+            <Flex gap='xl' justify='start' align='flex-start'>
               <Box>
                 <Image h={300} w={300} radius='sm' src={character.image} alt={character.name} />
               </Box>

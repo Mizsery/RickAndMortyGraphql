@@ -2,7 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from '@pages/Home/Home';
 
 import { Container } from './components/Layout/Container';
-import { Character } from './pages/Character/Character';
+import { Episode } from './pages/Episodes/Episode/Episode';
+import { EpisodesPage } from './pages/Episodes/Episodes';
+import { Character } from './pages/Home/Character/Character';
 
 const router = createBrowserRouter([
   {
@@ -24,11 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/episodes',
-        element: <div>Episodes</div>
+        element: <EpisodesPage />
       },
       {
         path: '/episodes/:id',
-        element: <div>Episode id</div>
+        element: <Episode />
       },
       {
         path: '/characters/:id',

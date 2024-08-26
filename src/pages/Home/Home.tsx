@@ -5,8 +5,6 @@ import clsx from 'clsx';
 
 import { DataGrid } from './components/DataGrid';
 
-import styles from './Home.module.scss';
-
 import type { FilterCharacter } from '@/@types/api';
 import { ClearInput } from '@/components/ClearInput/ClearInput';
 import { FilterSelect } from '@/components/FilterSelect/FilterSelect';
@@ -45,7 +43,7 @@ export const Home = () => {
 
   return (
     <>
-      <Stack align='flex-start' justify='center' className={clsx(styles.home)}>
+      <Stack align='flex-start' justify='center'>
 
         <Group>
           <ClearInput value={filters.name} type='name' changeInput={(type, value) => handleSelectFilters(type, value)} />
@@ -77,7 +75,7 @@ export const Home = () => {
 
       <Divider my='md' color='teal.6' />
 
-      <Box className={clsx(styles)}>
+      <Box>
         <DataGrid
           setPages={(page) => handleChangePage(page)}
           filters={filters}

@@ -63,6 +63,7 @@ export const DataGrid = ({ setPages, filters, debounceFilters }: DataGridProps) 
                         value={filters.page}
                         onChange={(page) => setPages(page)}
                         total={characters.info.pages}
+                        color='teal.6'
                       />
                     </Center>
                   )

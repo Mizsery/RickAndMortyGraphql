@@ -25,11 +25,11 @@ export const Container = () => {
           <Link to='/'>
             <Title order={2}>Characters</Title>
           </Link>
-          <Link to='/locations'>
-            <Title order={2}>Locations</Title>
-          </Link>
           <Link to='/episodes'>
             <Title order={2}>Episodes</Title>
+          </Link>
+          <Link to='/locations'>
+            <Title order={2}>Locations</Title>
           </Link>
         </Group>
 

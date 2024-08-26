@@ -6,9 +6,11 @@ interface FilterSelectProps {
   type: string;
   setValue: (type: string, value: string) => void;
   placeholder: string;
+  disable?: boolean;
 }
 
-export const FilterSelect = ({ value, values, type, setValue, placeholder }: FilterSelectProps) => {
+export const FilterSelect = (
+  { value, values, type, setValue, placeholder, disable }: FilterSelectProps) => {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption()
   });
@@ -38,6 +40,7 @@ export const FilterSelect = ({ value, values, type, setValue, placeholder }: Fil
           radius='md'
           variant='filled'
           pointer
+          disabled={disable}
           rightSection={<Combobox.Chevron />}
           onClick={() => combobox.toggleDropdown()}
           rightSectionPointerEvents='none'
