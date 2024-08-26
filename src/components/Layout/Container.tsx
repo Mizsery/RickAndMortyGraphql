@@ -29,7 +29,7 @@ export const Container = () => {
           </Link>
         </Group>
 
-        <img src='/src/assets/Rick_and_Morty.svg' alt='Rick and Morty logo' height={70} />
+        <img src='/Rick_and_Morty.svg' alt='Rick and Morty logo' height={70} />
 
         <Group justify='space-between' h='100%' p='md' preventGrowOverflow={false}>
           <ThemeButton />
