@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { AppShell, Burger, Group, Title } from '@mantine/core';
+import { AppShell, Burger, Group, Image, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import styles from './Container.module.scss';
@@ -29,7 +29,7 @@ export const Container = () => {
           </Link>
         </Group>
 
-        <img src='/Rick_and_Morty.svg' alt='Rick and Morty logo' height={70} />
+        <Image src='Rick_and_Morty.svg' alt='Rick and Morty logo' height={70} />
 
         <Group justify='space-between' h='100%' p='md' preventGrowOverflow={false}>
           <ThemeButton />
