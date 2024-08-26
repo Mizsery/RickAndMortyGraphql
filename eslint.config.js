@@ -132,6 +132,7 @@ export default antfu(
       'antfu/curly': 'off',
 
       'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/rules-of-hooks': 'error',
 
       'ts/no-explicit-any': 'error',
       'ts/no-shadow': 'error',

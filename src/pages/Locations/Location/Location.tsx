@@ -6,44 +6,46 @@ import { Grid, Image, Stack, Text, Title } from '@mantine/core';
 
 import { InfoContainer } from '@/components/InfoContainer/InfoContainer';
 import { InfoGridContainer } from '@/components/InfoGridContainer/InfoGridContainer';
-import type { GetEpisode } from '@/utils/graphql/requests';
-import { GET_EPISODE } from '@/utils/graphql/requests';
+import type { GetLocation } from '@/utils/graphql/requests';
+import { GET_LOCATION } from '@/utils/graphql/requests';
 
-export const Episode = () => {
+export const Location = () => {
   const { id } = useParams();
 
   const { data, loading, error, refetch }
-   = useQuery<GetEpisode, { id: number | string }>(GET_EPISODE, {
+   = useQuery<GetLocation, { id: number | string }>(GET_LOCATION, {
      variables: {
        id: id !== undefined ? id : ''
+
      }
    });
 
   if (loading) return <CustomLoader />;
   if (error) return <ErrorMessage refetch={refetch} error={error} />;
 
-  const episode = data?.episode;
+  const location = data?.location;
 
   return (
     <>
       {
-        episode && (
+        location && (
           <Stack>
             <InfoContainer
-              dividerTitle='Characters in the episode'
-              length={episode.characters.length}
+              dividerTitle='Characters who have been last seen in the location'
+              length={location.residents.length}
             >
-              <Title order={3}>{episode.name}</Title>
-              <Text component='p'>Episode: <br /> {episode.episode}</Text>
-              <Text component='p'>Episode air date: <br /> {episode.air_date}</Text>
+              <Title order={3}>{location.name}</Title>
+              <Text component='p'>Location type: <br /> {location.type}</Text>
+              <Text component='p'>Dimension: <br /> {location.dimension}</Text>
             </InfoContainer>
 
             <Grid>
-              {episode && episode.characters.map((character) => (
-                <InfoGridContainer key={character.id} id={character.id} type='characters' centered>
+              {location && location.residents.map((character) => (
+                <InfoGridContainer key={character.id} type='characters' id={character.id} centered>
                   <Title order={3}>{character.name}</Title>
                   <Image h={300} w={300} radius='sm' src={character.image} alt={character.name} />
                 </InfoGridContainer>
+
               ))}
             </Grid>
           </Stack>

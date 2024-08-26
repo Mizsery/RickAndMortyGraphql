@@ -71,8 +71,8 @@ interface Characters {
   }
 }
 
-interface Location {
-  location: {
+interface Locations {
+  locations: {
     info: Info;
     results: Location[];
   }

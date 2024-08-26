@@ -17,11 +17,13 @@ export const GET_CHARACTER = gql`
     type
     gender
     origin {
+      id
       name
       type
       dimension
     }
     location {
+      id
       name
       type
       dimension

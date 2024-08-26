@@ -1,4 +1,4 @@
-import type { ApolloError, ApolloQueryResult } from '@apollo/client';
+import type { ApolloError } from '@apollo/client';
 import { Button, Stack, Text } from '@mantine/core';
 
 interface ErrorMessageProps {

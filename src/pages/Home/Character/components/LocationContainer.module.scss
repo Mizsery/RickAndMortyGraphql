@@ -1,0 +1,9 @@
+.link{
+  text-decoration: none;
+
+  color: var(--mantine-color-bright);
+
+  &:hover{
+    text-decoration: underline;
+  }
+}

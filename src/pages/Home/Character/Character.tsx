@@ -2,77 +2,67 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { CustomLoader } from '@components/CustomLoader/CustomLoader';
 import { ErrorMessage } from '@components/ErrorMessage/ErrorMessage';
-import { Box, Card, Divider, Flex, Grid, Image, Stack, Text, Title } from '@mantine/core';
+import { Card, Center, Grid, Image, Stack, Text, Title } from '@mantine/core';
 
 import { LocationContainer } from './components/LocationContainer';
 
-
+import { InfoContainer } from '@/components/InfoContainer/InfoContainer';
+import { InfoGridContainer } from '@/components/InfoGridContainer/InfoGridContainer';
 import type { GetCharacter } from '@/utils/graphql/requests';
 import { GET_CHARACTER } from '@/utils/graphql/requests';
 
 export const Character = () => {
   const { id } = useParams();
 
-  if (!id) return <CustomLoader />;
-
-  const { data, loading, error, refetch } = useQuery<GetCharacter, { id: number | string }>(GET_CHARACTER, {
-    variables: {
-      id
-    }
-  });
+  const { data, loading, error, refetch }
+   = useQuery<GetCharacter, { id: number | string }>(GET_CHARACTER, {
+     variables: {
+       id: id !== undefined ? id : ''
+     }
+   });
 
   if (loading) return <CustomLoader />;
+  if (data?.character === null) return <Center><Text>Character not found</Text></Center>;
   if (error) return <ErrorMessage refetch={refetch} error={error} />;
 
   const character = data?.character;
 
   return (
-    <Stack>
+    <>
       {
         character && (
-          <>
-            <Flex gap='xl' justify='start' align='flex-start'>
-              <Box>
-                <Image h={300} w={300} radius='sm' src={character.image} alt={character.name} />
-              </Box>
-              <Flex
-                gap='sm'
-                justify='flex-start'
-                align='flex-start'
-                direction='column'
-                wrap='wrap'
-              >
+          <Stack>
+            <InfoContainer
+              dividerTitle='Episodes'
+              length={character.episode.length}
+              image={<Image src={character.image} alt={character.name} />}
+              select={(
+                < >
+                  <LocationContainer title='Origin' location={character.origin} />
+                  <LocationContainer title='Last' location={character.location} />
+                </>
+              )}
+            >
               <Title order={3}>{character.name}</Title>
-                <Text component='p'>Species: <br /> {character.species}</Text>
-                {character.type && <Text component='p'>Type: <br /> {character.type}</Text>}
-                <Text component='p'>Status: <br /> {character.status}</Text>
-                <Text component='p'>Gender: <br /> {character.gender}</Text>
-              </Flex>
-              <LocationContainer title='Origin' location={character.origin} />
-              <LocationContainer title='Last' location={character.location} />
-
-            </Flex>
-
-            <Divider my='sm' color='teal.6' />
-            <Title order={2}>Episodes: {character.episode.length}</Title>
+              <Text component='p'>Species: <br /> {character.species}</Text>
+              {character.type && <Text component='p'>Type: <br /> {character.type}</Text>}
+              <Text component='p'>Status: <br /> {character.status}</Text>
+              <Text component='p'>Gender: <br /> {character.gender}</Text>
+            </InfoContainer>
 
             <Grid>
               {character && character.episode.map((episode) => (
-                <Grid.Col key={episode.id} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
-                  <Link to={`/episodes/${episode.id}`}>
-                    <Card shadow='sm' padding='md' radius='md' withBorder h='100%'>
-                      <Text component='p' fw={700}>Episode name: {episode.name}</Text>
-                      <Text component='p'>Episode: {episode.episode}</Text>
-                      <Text component='p'>Air date: {episode.air_date}</Text>
-                    </Card>
-                  </Link>
-                </Grid.Col>
+                <InfoGridContainer key={episode.id} id={episode.id} type='episodes'>
+                  <Text component='p' fw={700}>Episode name: {episode.name}</Text>
+                  <Text component='p'>Episode: {episode.episode}</Text>
+                  <Text component='p'>Air date: {episode.air_date}</Text>
+                </InfoGridContainer>
               ))}
             </Grid>
-          </>
+          </Stack>
         )
       }
 
-    </Stack>
+    </>
   );
 };

@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { Box, Button, Divider, Group, Stack } from '@mantine/core';
+import { useQuery } from '@apollo/client';
+import { Box, Divider, Group, Stack } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import clsx from 'clsx';
 
-import { DataGrid } from './components/DataGrid';
-
-import type { FilterCharacter } from '@/@types/api';
+import type { Characters, FilterCharacter } from '@/@types/api';
+import { ClearFilterButton } from '@/components/ClearFilterButton/ClearFilterButton';
 import { ClearInput } from '@/components/ClearInput/ClearInput';
+import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
+import { DataGrid } from '@/components/DataGrid/DataGrid';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { FilterSelect } from '@/components/FilterSelect/FilterSelect';
 import { GENDER, STATUS } from '@/utils/constant';
+import { GET_CHARACTERS } from '@/utils/graphql/requests';
+import { handleChangeFilters } from '@/utils/helpers/changeFilters';
+import { handleChangePage } from '@/utils/helpers/changePage';
+import { handleClearFilters } from '@/utils/helpers/clearFilters';
 
 export const Home = () => {
   const [filters, setFilters] = useState<FilterCharacter>({
@@ -22,33 +28,26 @@ export const Home = () => {
 
   const [debounceFilters] = useDebouncedValue(filters, 500);
 
-  const handleClearFilters = () => {
-    setFilters({
-      page: 1,
-      name: '',
-      status: '',
-      gender: '',
-      species: '',
-      type: ''
-    });
-  };
+  const { data, loading, error, refetch } = useQuery<Characters, FilterCharacter>(GET_CHARACTERS, {
+    variables: {
+      page: filters.page,
+      name: debounceFilters.name,
+      status: filters.status,
+      species: debounceFilters.species,
+      type: debounceFilters.type,
+      gender: filters.gender
+    }
+  });
 
-  const handleChangePage = (page: number) => {
-    setFilters({ ...filters, page });
-  };
-
-  const handleSelectFilters = (type: string, value: string) => {
-    setFilters({ ...filters, page: 1, [type]: value });
-  };
+  const characters = data?.characters;
 
   return (
     <>
       <Stack align='flex-start' justify='center'>
-
         <Group>
-          <ClearInput value={filters.name} type='name' changeInput={(type, value) => handleSelectFilters(type, value)} />
-          <ClearInput value={filters.species} type='species' changeInput={(type, value) => handleSelectFilters(type, value)} />
-          <ClearInput value={filters.type} type='type' changeInput={(type, value) => handleSelectFilters(type, value)} />
+          <ClearInput value={filters.name} type='name' changeInput={(type, value) => handleChangeFilters(type, value, setFilters, filters)} />
+          <ClearInput value={filters.species} type='species' changeInput={(type, value) => handleChangeFilters(type, value, setFilters, filters)} />
+          <ClearInput value={filters.type} type='type' changeInput={(type, value) => handleChangeFilters(type, value, setFilters, filters)} />
         </Group>
 
         <Group>
@@ -56,7 +55,7 @@ export const Home = () => {
             value={filters.status}
             type='status'
             values={STATUS}
-            setValue={(type, value) => handleSelectFilters(type, value)}
+            setValue={(type, value) => handleChangeFilters(type, value, setFilters, filters)}
             placeholder='Status'
 
           />
@@ -64,25 +63,37 @@ export const Home = () => {
             value={filters.gender}
             type='gender'
             values={GENDER}
-            setValue={(type, value) => handleSelectFilters(type, value)}
+            setValue={(type, value) => handleChangeFilters(type, value, setFilters, filters)}
             placeholder='Gender'
 
           />
         </Group>
 
-        <Button size='md' radius='md' variant='outline' color='teal.6' onClick={handleClearFilters}>Clear Filters</Button>
+        <ClearFilterButton handleClearFilters={() => handleClearFilters(setFilters)} />
       </Stack>
 
       <Divider my='md' color='teal.6' />
 
       <Box>
-        <DataGrid
-          setPages={(page) => handleChangePage(page)}
-          filters={filters}
-          debounceFilters={debounceFilters}
-        />
+        {
+          loading ? <CustomLoader /> : error ? <ErrorMessage refetch={refetch} error={error} />
+            : characters && characters.results.length > 0 && (
+              <DataGrid
+                type='characters'
+                data={characters}
+                currentPage={filters.page}
+                totalPages={characters.info.pages}
+                setPages={(page) => handleChangePage(page, setFilters, filters)}
+                image
+                textComponents={[
+                  { text: 'Species:', type: 'species' },
+                  { text: 'Type: ', type: 'type' },
+                  { text: 'Status: ', type: 'status' }
+                ]}
+              />
+            )
+        }
       </Box>
-
     </>
   );
 };

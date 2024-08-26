@@ -1,16 +1,12 @@
-import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { AppShell, Burger, CloseButton, Group, Input, Title } from '@mantine/core';
-import { useDebouncedValue, useDisclosure } from '@mantine/hooks';
+import { AppShell, Burger, Group, Title } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
 import styles from './Container.module.scss';
 
 import { ThemeButton } from '@/components/ThemeButton/ThemeButton';
 
 export const Container = () => {
-  /* const [value, setValue] = useState('');
-  const [debounce] = useDebouncedValue(value, 500); */
-
   const [opened, { toggle }] = useDisclosure();
 
   return (
