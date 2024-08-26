@@ -1,4 +1,5 @@
 import { Box, Divider, Flex, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface InfoContainerProps {
   children: React.ReactNode;
@@ -10,14 +11,14 @@ interface InfoContainerProps {
 
 export const InfoContainer = (
   { children, dividerTitle, length, image, select }: InfoContainerProps) => {
+  const isMobile = useMediaQuery(`(max-width: 500px)`);
+
   return (
     <>
-      <Flex gap='xl' justify='start' align='flex-start'>
+      <Flex gap='xl' justify={isMobile && image ? 'center' : 'flex-start'} align='flex-start' wrap='wrap'>
         {image && <Box>{image}</Box>}
         <Flex
-          gap='sm'
-          justify='flex-start'
-          align='flex-start'
+          gap='md'
           direction='column'
           wrap='wrap'
         >

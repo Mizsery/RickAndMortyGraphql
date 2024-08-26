@@ -12,9 +12,7 @@ import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { FilterSelect } from '@/components/FilterSelect/FilterSelect';
 import { GENDER, STATUS } from '@/utils/constant';
 import { GET_CHARACTERS } from '@/utils/graphql/requests';
-import { handleChangeFilters } from '@/utils/helpers/changeFilters';
-import { handleChangePage } from '@/utils/helpers/changePage';
-import { handleClearFilters } from '@/utils/helpers/clearFilters';
+import { checkEmptyFilters, handleChangeFilters, handleChangePage, handleClearFilters } from '@/utils/helpers';
 
 export const Home = () => {
   const [filters, setFilters] = useState<FilterCharacter>({
@@ -69,7 +67,10 @@ export const Home = () => {
           />
         </Group>
 
-        <ClearFilterButton handleClearFilters={() => handleClearFilters(setFilters)} />
+        <ClearFilterButton
+          handleClearFilters={() => handleClearFilters(setFilters)}
+          disabled={checkEmptyFilters(filters)}
+        />
       </Stack>
 
       <Divider my='md' color='teal.6' />

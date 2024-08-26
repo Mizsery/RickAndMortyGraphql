@@ -9,7 +9,6 @@
 
   a {
     color: var(--mantine-color-teal-6);
-
   }
 }
 
@@ -20,5 +19,7 @@
 }
 
 .navbar {
-  flex-direction: column;
+  a {
+    color: var(--mantine-color-teal-6);
+  }
 }

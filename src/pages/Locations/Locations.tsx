@@ -10,9 +10,7 @@ import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
 import { DataGrid } from '@/components/DataGrid/DataGrid';
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { GET_LOCATIONS } from '@/utils/graphql/requests';
-import { handleChangeFilters } from '@/utils/helpers/changeFilters';
-import { handleChangePage } from '@/utils/helpers/changePage';
-import { handleClearFilters } from '@/utils/helpers/clearFilters';
+import { checkEmptyFilters, handleChangeFilters, handleChangePage, handleClearFilters } from '@/utils/helpers';
 
 export const LocationsPage = () => {
   const [filters, setFilters] = useState<FilterLocation>({
@@ -44,7 +42,10 @@ export const LocationsPage = () => {
           <ClearInput value={filters.dimension} type='dimension' changeInput={(type, value) => handleChangeFilters(type, value, setFilters, filters)} />
         </Group>
 
-        <ClearFilterButton handleClearFilters={() => handleClearFilters(setFilters)} />
+        <ClearFilterButton
+          handleClearFilters={() => handleClearFilters(setFilters)}
+          disabled={checkEmptyFilters(filters)}
+        />
       </Stack>
 
       <Divider my='md' color='teal.6' />

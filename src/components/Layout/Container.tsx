@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { AppShell, Burger, Group, Image, Title } from '@mantine/core';
+import { AppShell, Burger, Flex, Group, Image, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import styles from './Container.module.scss';
@@ -29,26 +29,35 @@ export const Container = () => {
           </Link>
         </Group>
 
-        <Image src='Rick_and_Morty.svg' alt='Rick and Morty logo' height={70} />
+        <Link to='/'>
+          <Image src='Rick_and_Morty.svg' alt='Rick and Morty logo' h={70} fit='contain' />
+        </Link>
 
         <Group justify='space-between' h='100%' p='md' preventGrowOverflow={false}>
-          <ThemeButton />
           <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
+          <ThemeButton />
         </Group>
       </AppShell.Header>
 
       <AppShell.Navbar p='md' className={styles.navbar}>
-        <Group p='md'>
+        <Flex
+          p='md'
+          gap='md'
+          justify='center'
+          align='flex-start'
+          direction='column'
+          wrap='wrap'
+        >
           <Link to='/'>
-            <Title order={2}>Персонажи</Title>
-          </Link>
-          <Link to='/locations'>
-            <Title order={2}>Локации</Title>
+            <Title order={4}>Characters</Title>
           </Link>
           <Link to='/episodes'>
-            <Title order={2}>Эпизоды</Title>
+            <Title order={4}>Episodes</Title>
           </Link>
-        </Group>
+          <Link to='/locations'>
+            <Title order={4}>Locations</Title>
+          </Link>
+        </Flex>
       </AppShell.Navbar>
 
       <AppShell.Main>

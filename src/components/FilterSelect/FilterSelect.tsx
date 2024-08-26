@@ -1,4 +1,5 @@
 import { Combobox, Input, InputBase, useCombobox } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface FilterSelectProps {
   value: string;
@@ -11,6 +12,7 @@ interface FilterSelectProps {
 
 export const FilterSelect = (
   { value, values, type, setValue, placeholder, disable }: FilterSelectProps) => {
+  const isMobile = useMediaQuery(`(max-width: 500px)`);
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption()
   });
@@ -36,7 +38,7 @@ export const FilterSelect = (
           component='button'
           w='200px'
           type='button'
-          size='md'
+          size={isMobile ? 'xs' : 'md'}
           radius='md'
           variant='filled'
           pointer

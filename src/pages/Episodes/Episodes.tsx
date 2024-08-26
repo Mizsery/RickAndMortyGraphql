@@ -12,9 +12,7 @@ import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { FilterSelect } from '@/components/FilterSelect/FilterSelect';
 import { SEASON_SERIES, SEASONS } from '@/utils/constant';
 import { GET_EPISODES } from '@/utils/graphql/requests';
-import { handleChangeFilters } from '@/utils/helpers/changeFilters';
-import { handleChangePage } from '@/utils/helpers/changePage';
-import { handleClearFilters } from '@/utils/helpers/clearFilters';
+import { checkEmptyFilters, handleChangeFilters, handleChangePage, handleClearFilters } from '@/utils/helpers';
 
 interface FilterEpisodeWithSeason extends FilterEpisode {
   season: string;
@@ -82,7 +80,10 @@ export const EpisodesPage = () => {
           />
         </Group>
 
-        <ClearFilterButton handleClearFilters={() => handleClearFilters(setFilters)} />
+        <ClearFilterButton
+          handleClearFilters={() => handleClearFilters(setFilters)}
+          disabled={checkEmptyFilters(filters)}
+        />
       </Stack>
 
       <Divider my='md' color='teal.6' />

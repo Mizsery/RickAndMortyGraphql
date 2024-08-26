@@ -35,7 +35,7 @@ export const Character = () => {
             <InfoContainer
               dividerTitle='Episodes'
               length={character.episode.length}
-              image={<Image src={character.image} alt={character.name} />}
+              image={<Image src={character.image} radius='md' alt={character.name} />}
               select={(
                 < >
                   <LocationContainer title='Origin' location={character.origin} />
