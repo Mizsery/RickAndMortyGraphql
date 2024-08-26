@@ -1,8 +1,6 @@
 import { CloseButton, TextInput } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import styles from './ClearInput.module.scss';
-
 interface ClearInputProps {
   value: string;
   type: string;
@@ -14,7 +12,6 @@ export const ClearInput = ({ value, type, changeInput }: ClearInputProps) => {
 
   return (
     <TextInput
-      className={styles.input}
       label={type.toUpperCase()}
       placeholder={`Enter ${type}`}
       size={isMobile ? 'xs' : 'md'}
