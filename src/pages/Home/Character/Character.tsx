@@ -1,8 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { CustomLoader } from '@components/CustomLoader/CustomLoader';
 import { ErrorMessage } from '@components/ErrorMessage/ErrorMessage';
-import { Card, Center, Grid, Image, Stack, Text, Title } from '@mantine/core';
+import { Center, Grid, Image, Stack, Text, Title } from '@mantine/core';
 
 import { LocationContainer } from './components/LocationContainer';
 
