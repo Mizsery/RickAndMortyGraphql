@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { Box, Divider, Group, Stack } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 
-import type { Characters, FilterCharacter } from '@/@types/api';
+import type { Characters, CompatibleData, FilterCharacter } from '@/@types/api';
 import { ClearFilterButton } from '@/components/ClearFilterButton/ClearFilterButton';
 import { ClearInput } from '@/components/ClearInput/ClearInput';
 import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
@@ -80,7 +80,7 @@ export const Home = () => {
             : characters && characters.results.length > 0 && (
               <DataGrid
                 type='characters'
-                data={characters}
+                data={characters as CompatibleData<Characters>}
                 currentPage={filters.page}
                 totalPages={characters.info.pages}
                 setPages={(page) => handleChangePage(page, setFilters, filters)}

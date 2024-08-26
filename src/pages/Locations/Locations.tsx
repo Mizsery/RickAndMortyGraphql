@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { Box, Divider, Group, Stack } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 
-import type { FilterLocation, Locations } from '@/@types/api';
+import type { CompatibleData, FilterLocation, Locations } from '@/@types/api';
 import { ClearFilterButton } from '@/components/ClearFilterButton/ClearFilterButton';
 import { ClearInput } from '@/components/ClearInput/ClearInput';
 import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
@@ -55,7 +55,7 @@ export const LocationsPage = () => {
             : locations && locations.results.length > 0 && (
               <DataGrid
                 type='locations'
-                data={locations}
+                data={locations as CompatibleData<Locations>}
                 currentPage={filters.page}
                 totalPages={locations.info.pages}
                 setPages={(page) => handleChangePage(page, setFilters, filters)}

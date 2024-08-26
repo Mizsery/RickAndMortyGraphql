@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { Box, Divider, Group, Stack } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 
-import type { Episodes, FilterEpisode } from '@/@types/api';
+import type { CompatibleData, Episodes, FilterEpisode } from '@/@types/api';
 import { ClearFilterButton } from '@/components/ClearFilterButton/ClearFilterButton';
 import { ClearInput } from '@/components/ClearInput/ClearInput';
 import { CustomLoader } from '@/components/CustomLoader/CustomLoader';
@@ -93,7 +93,7 @@ export const EpisodesPage = () => {
             : episodes && episodes.results.length > 0 && (
               <DataGrid
                 type='episodes'
-                data={episodes}
+                data={episodes as CompatibleData<Episodes>}
                 currentPage={filters.page}
                 totalPages={episodes.info.pages}
                 setPages={(page) => handleChangePage(page, setFilters, filters)}

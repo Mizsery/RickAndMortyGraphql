@@ -84,3 +84,12 @@ interface Episodes {
     results: Episode[];
   }
 }
+
+interface CompatibleData<T> {
+  info: Info;
+  results: (T & DataType)[];
+}
+
+type DataType = {
+  [key: string]: string;
+} & (Location | Character | Episode);

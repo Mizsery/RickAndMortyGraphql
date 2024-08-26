@@ -3,11 +3,11 @@ import { Card, Grid, Image, Stack, Text, Title } from '@mantine/core';
 
 import { CenterPagination } from '../CenterPagination/CenterPagination';
 
-import type { Character, Episode, Info, Location } from '@/@types/api';
+import type { DataType, Info } from '@/@types/api';
 
 interface DataGridProps<T> {
   setPages: (page: number) => void;
-  image: boolean;
+  image?: boolean;
   currentPage: number;
   data: {
     info: Info;
@@ -21,10 +21,6 @@ interface DataGridProps<T> {
     center?: boolean;
   }[];
 }
-
-type DataType = {
-  [key: string]: string;
-} & (Location | Character | Episode);
 
 export const DataGrid = <T extends DataType>(
   { setPages, data, currentPage, type, totalPages, textComponents, image }:
